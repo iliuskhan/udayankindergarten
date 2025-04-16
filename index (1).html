@@ -1,0 +1,170 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row =>
+                    row.some(cell => cell !== '' && cell !== null && cell !== undefined)
+                );
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Udayan Kindergarten</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles */
+        .hero-bg {
+            background-image: url('https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+        .gallery-img {
+            transition: transform 0.3s;
+        }
+        .gallery-img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800">
+    <!-- Header -->
+    <header class="bg-blue-600 text-white sticky top-0 z-10">
+        <nav class="container mx-auto flex justify-between items-center py-4 px-6">
+            <h1 class="text-2xl font-bold">উদয়ন কিন্ডারগার্টেন, সুবর্ণপুর</h1>
+            <ul class="flex space-x-6">
+                <li><a href="#home" class="hover:text-yellow-300">Home</a></li>
+                <li><a href="#about" class="hover:text-yellow-300">About</a></li>
+                <li><a href="#programs" class="hover:text-yellow-300">Programs</a></li>
+                <li><a href="#gallery" class="hover:text-yellow-300">Gallery</a></li>
+                <li><a href="#contact" class="hover:text-yellow-300">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg h-screen flex items-center justify-center text-center text-white">
+        <div class="bg-black bg-opacity-50 p-8 rounded-lg">
+            <h2 class="text-4xl font-bold mb-4">Welcome to Udayan Kindergarten</h2>
+            <p class="text-lg mb-6">Nurturing young minds with love, care, and creativity.</p>
+            <a href="#contact" class="bg-yellow-400 text-gray-800 px-6 py-3 rounded-full font-semibold hover:bg-yellow-500">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-8">About Us</h2>
+            <p class="text-lg text-center max-w-3xl mx-auto">
+                Udayan Kindergarten is dedicated to providing a warm and stimulating environment for young learners. Our experienced teachers foster creativity, curiosity, and a love for learning through play-based and structured activities. Established in 1996 [Shifted to own building in November, 2022], we aim to build a strong foundation for your child's future.
+    <section id="about" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-8">Owners of the School</h2>
+            <p class="text-lg text-center max-w-3xl mx-auto">
+                Name of the Partners are;
+                1. Awal Khan [Founder & Principal]
+                2. Elias Khan
+                3. Hannan Khan
+                4. Mashuk Khan
+                5. Emil Khan
+                6. Jahir Khan
+                7. Islam Khan
+                8. Moslem Khan
+            </p>
+        </div>
+    </section>
+
+    <!-- Programs Section -->
+    <section id="programs" class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-8">Our Programs</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-semibold mb-4">Playgroup [under consideration]</h3>
+                    <p>Designed for ages 2-4, our playgroup focuses on sensory play, social skills, and early learning through fun activities.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-semibold mb-4">Nursery</h3>
+                    <p>For ages 4-5, our nursery program introduces basic literacy, numeracy, and creative expression in a structured setting.</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                    <h3 class="text-xl font-semibold mb-4">Kindergarten</h3>
+                    <p>Ages 5+, preparing children for primary school with advanced skills in reading, writing, and problem-solving.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-8">Gallery</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <img src="https://drive.google.com/file/d/1QRCW8xz7syJMgWeMOFLcxOmzNaxibJxu/view" alt="Children playing" class="gallery-img rounded-lg shadow-md">
+                <img src="https://drive.google.com/file/d/1YSYiGA5yNYSaFSHdjoWraOkmaBufm79s/view" alt="Classroom activity" class="gallery-img rounded-lg shadow-md">
+                <img src="https://drive.google.com/file/d/1dQpWEbcKawM_cDGt_r_BvV52JkatPtPk/view" alt="Outdoor fun" class="gallery-img rounded-lg shadow-md">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-8">Contact Us</h2>
+            <div class="max-w-lg mx-auto bg-white p-8 rounded-lg shadow-lg">
+                <div class="mb-4">
+                    <p class="text-lg"><strong>Address:</strong> Subarna pur, Ward # 04, Punchthubi Union, Adarsha Sadar, [Comilla, Bangladesh]</p>
+                    <p class="text-lg"><strong>Phone:</strong> +88-01817-112401, +88-01841-717949</p>
+                    <p class="text-lg"><strong>Email:</strong> udayan9622@gmail.com</p>
+                </div>
+                <div class="text-center">
+                    <p class="text-lg mb-4">Interested in enrolling your child? Reach out to us!</p>
+                    <a href="mailto:udayan9622@gmail.com" class="bg-blue-600 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-700">Email Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white py-6">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Udayan Kindergarten. All rights reserved.</p>
+            <p class="mt-2">Designed with <span class="text-red-300">&hearts;</span> for young learners.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Smooth Scrolling -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
